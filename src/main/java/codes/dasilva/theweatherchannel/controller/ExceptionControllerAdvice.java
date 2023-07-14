@@ -13,7 +13,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(WeatherNotFoundException.class)
     private ResponseEntity<String> handleWeatherNotFoundException(WeatherNotFoundException e) {
-        log.error("Weather not found", e);
+        log.error(e.getMessage(), e);
         return ResponseEntity.status(e.getStatusCode()).body(e.getMessage());
     }
 
