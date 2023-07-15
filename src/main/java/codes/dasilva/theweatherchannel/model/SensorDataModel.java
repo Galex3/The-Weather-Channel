@@ -1,13 +1,14 @@
 package codes.dasilva.theweatherchannel.model;
 
 import codes.dasilva.theweatherchannel.constant.Statistic;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -22,28 +23,25 @@ public class SensorDataModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 987654L;
 
+    @Id
     @NotBlank
     private String sensor;
 
-    @NotEmpty
+    @NotNull
     private Statistic statistic;
 
-    @NotEmpty
-    @Min(-100)
     private double temperature;
 
-    @NotEmpty
-    @Min(0)
-    private long humidity;
+    @DecimalMin(value = "0")
+    private double humidity;
 
-    @NotEmpty
-    @Min(0)
+    @DecimalMin(value = "0")
     private double windSpeed;
 
-    @NotEmpty
+    @NotNull
     private Date startDate;
 
-    @NotEmpty
+    @NotNull
     private Date endDate;
 
 }

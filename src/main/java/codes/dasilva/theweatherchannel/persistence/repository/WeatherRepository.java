@@ -5,13 +5,14 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface WeatherRepository extends MongoRepository<WeatherEntity, String> {
 
-    // TODO
-    @Query(value = "{'sensor':  ?0}")
-    Optional<WeatherEntity> findWeatherEntitiesBySensor();
+    @Query("{ 'sensor' : { $in: ?0 }, 'timestamp' : { $gte: ?1, $lte: ?2 }, 'valid' : true }")
+    List<WeatherEntity> findAllThatMatchCriteria(Set<String> sensors, Date startDate, Date endDate);
 
 }

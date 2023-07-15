@@ -1,8 +1,8 @@
 package codes.dasilva.theweatherchannel.service.impl;
 
 import codes.dasilva.theweatherchannel.exception.WeatherNotFoundException;
-import codes.dasilva.theweatherchannel.persistence.entity.WeatherEntity;
 import codes.dasilva.theweatherchannel.model.WeatherModel;
+import codes.dasilva.theweatherchannel.persistence.entity.WeatherEntity;
 import codes.dasilva.theweatherchannel.persistence.repository.WeatherRepository;
 import codes.dasilva.theweatherchannel.service.WeatherService;
 import lombok.extern.slf4j.Slf4j;

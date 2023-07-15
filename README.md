@@ -62,5 +62,6 @@ In addition to @RequestMapping, this rule also considers the annotations introdu
 * [The error-handling-spring-boot-starter library vs Spring 6 ProblemDetail](https://www.wimdeblauwe.com/blog/2022/12/01/the-error-handling-spring-boot-starter-library-vs-spring-6-problemdetail/)
 * [Difference Between @NotNull, @NotEmpty, and @NotBlank Constraints in Bean Validation](https://www.baeldung.com/java-bean-validation-not-null-empty-blank)
 * [Dependency Injection](https://docs.spring.io/spring-framework/reference/6.1-SNAPSHOT/core/beans/dependencies/factory-collaborators.html)
+* [Spring Data MongoDB: Projections and Aggregations](https://www.baeldung.com/spring-data-mongodb-projections-aggregations)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

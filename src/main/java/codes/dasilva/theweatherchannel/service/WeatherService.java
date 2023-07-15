@@ -1,7 +1,7 @@
 package codes.dasilva.theweatherchannel.service;
 
-import codes.dasilva.theweatherchannel.persistence.entity.WeatherEntity;
 import codes.dasilva.theweatherchannel.model.WeatherModel;
+import codes.dasilva.theweatherchannel.persistence.entity.WeatherEntity;
 
 import java.util.List;
 

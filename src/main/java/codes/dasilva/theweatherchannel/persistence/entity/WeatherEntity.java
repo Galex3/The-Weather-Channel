@@ -2,10 +2,10 @@ package codes.dasilva.theweatherchannel.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.DecimalMax;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,19 +40,19 @@ public class WeatherEntity implements Serializable {
     @Pattern(regexp = "^[\\w]{1,100}$") // Disabling symbols enhances security
     private String sensor;
 
-    @NotEmpty
-    @Min(-100)
-    @Max(100)
+    @NotNull
+    @DecimalMin(value = "-100")
+    @DecimalMax(value = "100")
     private float temperature;
 
-    @NotEmpty
-    @Min(0)
-    @Max(100)
+    @NotNull
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "100")
     private byte humidity;
 
-    @NotEmpty
-    @Min(0)
-    @Max(500)
+    @NotNull
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "500")
     private float windSpeed;
 
     @CreatedDate

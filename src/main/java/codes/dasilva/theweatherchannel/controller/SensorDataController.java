@@ -4,6 +4,8 @@ import codes.dasilva.theweatherchannel.constant.Metric;
 import codes.dasilva.theweatherchannel.constant.Statistic;
 import codes.dasilva.theweatherchannel.model.SensorDataModel;
 import codes.dasilva.theweatherchannel.service.SensorDataService;
+import jakarta.validation.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.ResponseEntity.status;
 
@@ -30,15 +34,14 @@ public class SensorDataController {
     @GetMapping(value = "/sensor-data", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody ResponseEntity<List<SensorDataModel>> getSensorData(
-            @RequestParam(required = false) List<String> sensors,
-            @RequestParam(required = false) List<Metric> metrics,
-            @RequestParam(required = false) Statistic statistic,
-            @RequestParam(required = false) Date startDate,
-            @RequestParam(required = false) Date endDate,
-            @RequestParam(required = false) boolean fahrenheit
+            @RequestParam @NotEmpty Set<String> sensors,
+            @RequestParam @NotEmpty EnumSet<Metric> metrics,
+            @RequestParam(name = "stat", defaultValue = "AVG", required = false) Statistic statistic,
+            @RequestParam(defaultValue = "2023-07-01", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date startDate,
+            @RequestParam(defaultValue = "2023-07-31", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate,
+            @RequestParam(name = "usa", defaultValue = "false", required = false) boolean fahrenheit
     ) {
-        // TODO
-        return status(HttpStatus.OK).body(sensorDataService.getSensorData());
+        return status(HttpStatus.OK).body(sensorDataService.getSensorData(sensors, metrics, statistic, startDate, endDate, fahrenheit));
     }
 
 }

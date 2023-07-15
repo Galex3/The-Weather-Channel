@@ -5,4 +5,5 @@ public record WeatherModel(
         float temperature,
         byte humidity,
         float windSpeed
-) {}
+) {
+}
