@@ -13,6 +13,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#notes">Notes</a></li>
     <li><a href="#references">References</a></li>
   </ol>
 </details>
@@ -26,10 +27,12 @@ To get a local copy up and running follow these steps.
 
 ### Installation
 
-1. Clone the repo
+1. Clone the repo:
    ```sh
    git clone https://github.com/Galex3/The-Weather-Channel.git
    ```
+2. Open the Project on your IDE
+3. Done!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -37,6 +40,10 @@ To get a local copy up and running follow these steps.
 
 <!-- USAGE EXAMPLES -->
 ## Usage
+
+Use the Postman collection on the project's root folder to start querying data!
+
+The database is hosted on the cloud using MongoDB Atlas, and the connection is open to all IP addresses.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -10,7 +10,7 @@
     </parent>
     <groupId>codes.dasilva</groupId>
     <artifactId>The-Weather-Channel</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>The-Weather-Channel</name>
     <description>The-Weather-Channel</description>
     <properties>
