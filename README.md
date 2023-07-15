@@ -44,7 +44,7 @@ To get a local copy up and running follow these steps.
 
 ## Notes
 
-### Why did I use a WeatherDTO (Data Transfer Object)?
+### Why did I use a WeatherModel as a DTO (Data Transfer Object) and a WeatherEntity?
 According to SonarLint: "On one side, Spring MVC automatically bind request parameters to beans declared as arguments of methods annotated with @RequestMapping. Because of this automatic binding feature, it’s possible to feed some unexpected fields on the arguments of the @RequestMapping annotated methods.
 On the other end, persistent objects (@Entity or @Document) are linked to the underlying database and updated automatically by a persistence framework, such as Hibernate, JPA or Spring Data MongoDB.
 These two facts combined can lead to malicious attack: if a persistent object is used as an argument of a method annotated with @RequestMapping, it’s possible from a specially crafted user input, to change the content of unexpected fields into the database.
