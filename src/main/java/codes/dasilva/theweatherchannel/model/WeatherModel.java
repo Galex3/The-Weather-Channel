@@ -1,6 +1,6 @@
 package codes.dasilva.theweatherchannel.model;
 
-public record WeatherDTO(
+public record WeatherModel(
         String sensor,
         float temperature,
         byte humidity,

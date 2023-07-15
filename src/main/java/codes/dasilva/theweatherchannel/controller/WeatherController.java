@@ -1,9 +1,8 @@
 package codes.dasilva.theweatherchannel.controller;
 
-import codes.dasilva.theweatherchannel.model.Weather;
-import codes.dasilva.theweatherchannel.model.WeatherDTO;
+import codes.dasilva.theweatherchannel.model.WeatherModel;
+import codes.dasilva.theweatherchannel.persistence.entity.WeatherEntity;
 import codes.dasilva.theweatherchannel.service.WeatherService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,45 +23,40 @@ import static org.springframework.http.ResponseEntity.status;
 @RestController
 public class WeatherController {
 
-    @Autowired
-    private WeatherService weatherService;
+    private final WeatherService weatherService;
+
+    public WeatherController(WeatherService weatherService) {
+        this.weatherService = weatherService;
+    }
 
     @GetMapping(value = "/weather/{weatherUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody ResponseEntity<Weather> getWeatherById(@PathVariable String weatherUuid) {
+    public @ResponseBody ResponseEntity<WeatherEntity> getWeatherById(@PathVariable String weatherUuid) {
         return status(HttpStatus.OK).body(weatherService.getWeatherByUuid(weatherUuid));
     }
 
     @GetMapping(value = "/weather", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody ResponseEntity<List<Weather>> getAllWeather() {
+    public @ResponseBody ResponseEntity<List<WeatherEntity>> getAllWeather() {
         return status(HttpStatus.OK).body(weatherService.getAllWeather());
     }
 
     @PostMapping(value = "/weather", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public @ResponseBody ResponseEntity<Weather> createWeather(@RequestBody WeatherDTO dto) {
+    public @ResponseBody ResponseEntity<WeatherEntity> createWeather(@RequestBody WeatherModel dto) {
         return status(HttpStatus.CREATED).body(weatherService.createWeather(dto));
     }
 
     @PutMapping(value = "/weather/{weatherUuid}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody ResponseEntity<Weather> updateWeather(@PathVariable String weatherUuid, @RequestBody WeatherDTO dto) {
+    public @ResponseBody ResponseEntity<WeatherEntity> updateWeather(@PathVariable String weatherUuid, @RequestBody WeatherModel dto) {
         return status(HttpStatus.OK).body(weatherService.updateWeather(weatherUuid, dto));
     }
 
     @DeleteMapping(value = "/weather/{weatherUuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody ResponseEntity<Weather> deleteWeather(@PathVariable String weatherUuid) {
+    public @ResponseBody ResponseEntity<WeatherEntity> deleteWeather(@PathVariable String weatherUuid) {
         return status(HttpStatus.OK).body(weatherService.deleteWeather(weatherUuid));
     }
-
-    /*@GetMapping(value = "/weather", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody ResponseEntity<Weather> getWeather(@RequestParam List<String> sensor) {
-        // TODO
-        //return status(HttpStatus.OK).body(weatherService.getWeather(weatherUuid));
-        return null;
-    }*/
 
 }

@@ -1,20 +1,20 @@
 package codes.dasilva.theweatherchannel.service;
 
-import codes.dasilva.theweatherchannel.model.Weather;
-import codes.dasilva.theweatherchannel.model.WeatherDTO;
+import codes.dasilva.theweatherchannel.persistence.entity.WeatherEntity;
+import codes.dasilva.theweatherchannel.model.WeatherModel;
 
 import java.util.List;
 
 public interface WeatherService {
 
-    Weather getWeatherByUuid(String weatherUuid);
+    WeatherEntity getWeatherByUuid(String weatherUuid);
 
-    List<Weather> getAllWeather();
+    List<WeatherEntity> getAllWeather();
 
-    Weather createWeather(WeatherDTO entity);
+    WeatherEntity createWeather(WeatherModel dto);
 
-    Weather updateWeather(String weatherUuid, WeatherDTO entity);
+    WeatherEntity updateWeather(String weatherUuid, WeatherModel dto);
 
-    Weather deleteWeather(String weatherUuid);
+    WeatherEntity deleteWeather(String weatherUuid);
 
 }

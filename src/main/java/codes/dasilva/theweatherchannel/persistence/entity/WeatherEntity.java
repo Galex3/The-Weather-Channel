@@ -1,7 +1,12 @@
-package codes.dasilva.theweatherchannel.model;
+package codes.dasilva.theweatherchannel.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,7 +27,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class Weather implements Serializable {
+public class WeatherEntity implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -31,12 +36,23 @@ public class Weather implements Serializable {
     @TextIndexed
     private String weatherUuid;
 
+    @NotBlank
+    @Pattern(regexp = "^[\\w]{1,100}$") // Disabling symbols enhances security
     private String sensor;
 
+    @NotEmpty
+    @Min(-100)
+    @Max(100)
     private float temperature;
 
+    @NotEmpty
+    @Min(0)
+    @Max(100)
     private byte humidity;
 
+    @NotEmpty
+    @Min(0)
+    @Max(500)
     private float windSpeed;
 
     @CreatedDate

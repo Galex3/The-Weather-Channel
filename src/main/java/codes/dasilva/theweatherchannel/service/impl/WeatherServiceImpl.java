@@ -1,13 +1,11 @@
 package codes.dasilva.theweatherchannel.service.impl;
 
 import codes.dasilva.theweatherchannel.exception.WeatherNotFoundException;
-import codes.dasilva.theweatherchannel.model.Weather;
-import codes.dasilva.theweatherchannel.model.WeatherDTO;
-import codes.dasilva.theweatherchannel.repository.WeatherRepository;
+import codes.dasilva.theweatherchannel.persistence.entity.WeatherEntity;
+import codes.dasilva.theweatherchannel.model.WeatherModel;
+import codes.dasilva.theweatherchannel.persistence.repository.WeatherRepository;
 import codes.dasilva.theweatherchannel.service.WeatherService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -19,19 +17,30 @@ import java.util.UUID;
 @Slf4j
 public class WeatherServiceImpl implements WeatherService {
 
-    @Autowired
-    private WeatherRepository weatherRepository;
+    private final WeatherRepository weatherRepository;
 
-    private static final String WEATHER_NOT_FOUND = "Weather with id: '%s' not found";
+    public WeatherServiceImpl(WeatherRepository weatherRepository) {
+        this.weatherRepository = weatherRepository;
+    }
 
     @Override
-    public List<Weather> getAllWeather() {
+    public List<WeatherEntity> getAllWeather() {
         return weatherRepository.findAll();
     }
 
     @Override
-    public Weather createWeather(WeatherDTO dto) {
-        Weather weather = Weather.builder().weatherUuid(UUID.randomUUID().toString())
+    public WeatherEntity getWeatherByUuid(String weatherUuid) {
+        Optional<WeatherEntity> weather = weatherRepository.findById(weatherUuid);
+        if (weather.isPresent()) {
+            log.info(String.format("Weather with id='%s' retrieved", weather.get().getWeatherUuid()));
+            return weather.get();
+        }
+        throw new WeatherNotFoundException(weatherUuid);
+    }
+
+    @Override
+    public WeatherEntity createWeather(WeatherModel dto) {
+        WeatherEntity weather = WeatherEntity.builder().weatherUuid(UUID.randomUUID().toString())
                 .sensor(dto.sensor())
                 .temperature(dto.temperature())
                 .humidity(dto.humidity())
@@ -45,42 +54,31 @@ public class WeatherServiceImpl implements WeatherService {
     }
 
     @Override
-    public Weather getWeatherByUuid(String weatherUuid) {
-        Optional<Weather> weather = weatherRepository.findById(weatherUuid);
-        if (weather.isPresent()) {
-            log.info(String.format("Weather with id='%s' retrieved", weather.get().getWeatherUuid()));
-            return weather.get();
-        }
-        throw new WeatherNotFoundException(String.format(WEATHER_NOT_FOUND, weatherUuid), HttpStatus.NOT_FOUND);
-    }
-
-    @Override
-    public Weather updateWeather(String weatherUuid, WeatherDTO dto) {
-        Optional<Weather> weather = weatherRepository.findById(weatherUuid);
+    public WeatherEntity updateWeather(String weatherUuid, WeatherModel dto) {
+        Optional<WeatherEntity> weather = weatherRepository.findById(weatherUuid);
         if (weather.isPresent()) {
             weather.get().setSensor(dto.sensor());
             weather.get().setHumidity(dto.humidity());
             weather.get().setTemperature(dto.temperature());
             weather.get().setWindSpeed(dto.windSpeed());
             weather.get().setTimestamp(new Timestamp(System.currentTimeMillis()));
-            // If I had a lot more properties, I would use something like BeanUtils.copyProperties(dto, weather.get())
             weatherRepository.save(weather.get());
             log.info(String.format("Weather with id='%s' updated", weather.get().getWeatherUuid()));
             return weather.get();
         }
-        throw new WeatherNotFoundException(String.format(WEATHER_NOT_FOUND, weatherUuid), HttpStatus.NOT_FOUND);
+        throw new WeatherNotFoundException(weatherUuid);
     }
 
     @Override
-    public Weather deleteWeather(String weatherUuid) {
-        Optional<Weather> weather = weatherRepository.findById(weatherUuid);
+    public WeatherEntity deleteWeather(String weatherUuid) {
+        Optional<WeatherEntity> weather = weatherRepository.findById(weatherUuid);
         if (weather.isPresent()) {
             weather.get().setValid(false);
             weatherRepository.save(weather.get());
             log.info(String.format("Weather with id='%s' softly deleted", weather.get().getWeatherUuid()));
             return weather.get();
         }
-        throw new WeatherNotFoundException(String.format(WEATHER_NOT_FOUND, weatherUuid), HttpStatus.NOT_FOUND);
+        throw new WeatherNotFoundException(weatherUuid);
     }
 
 }

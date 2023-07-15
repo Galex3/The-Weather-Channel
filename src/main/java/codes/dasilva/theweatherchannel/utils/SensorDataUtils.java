@@ -1,8 +1,8 @@
 package codes.dasilva.theweatherchannel.utils;
 
-public class WeatherUtils {
+public class SensorDataUtils {
 
-    private WeatherUtils() {
+    private SensorDataUtils() {
         throw new IllegalStateException("Utility class");
     }
 
