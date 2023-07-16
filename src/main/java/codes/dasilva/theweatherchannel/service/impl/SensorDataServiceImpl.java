@@ -16,11 +16,11 @@ import java.util.Date;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.ToDoubleFunction;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static codes.dasilva.theweatherchannel.utils.WeatherUtils.celsiusToFahrenheit;
+import static codes.dasilva.theweatherchannel.utils.WeatherUtils.applyStatistic;
+import static codes.dasilva.theweatherchannel.utils.WeatherUtils.temperatureConverter;
 
 @Service
 @Slf4j
@@ -31,7 +31,6 @@ public class SensorDataServiceImpl implements SensorDataService {
     public SensorDataServiceImpl(WeatherRepository weatherRepository) {
         this.weatherRepository = weatherRepository;
     }
-    // So it doesn't include a non-existent sensor when existing ones are also included in query
 
     @Override
     public List<SensorDataModel> getSensorData(Set<String> sensors, EnumSet<Metric> metrics, Statistic statistic, Date startDate, Date endDate, boolean fahrenheit) {
@@ -54,7 +53,7 @@ public class SensorDataServiceImpl implements SensorDataService {
                 switch (metric) {
                     case TEMPERATURE -> {
                         final double temp = applyStatistic(statistic, weatherStream, WeatherEntity::getTemperature);
-                        sensorDataModel.setTemperature(fahrenheit ? celsiusToFahrenheit(temp) : temp);
+                        sensorDataModel.setTemperature(fahrenheit ? temperatureConverter(temp) : temp);
                     }
                     case HUMIDITY ->
                             sensorDataModel.setHumidity(applyStatistic(statistic, weatherStream, WeatherEntity::getHumidity));
@@ -66,15 +65,6 @@ public class SensorDataServiceImpl implements SensorDataService {
         }
         log.info("SensorData: " + Arrays.toString(sensorData.toArray()));
         return sensorData;
-    }
-
-    private Double applyStatistic(Statistic statistic, Stream<WeatherEntity> weatherStream, ToDoubleFunction<WeatherEntity> function) {
-        return switch (statistic) {
-            case SUM -> weatherStream.mapToDouble(function).sum();
-            case MIN -> weatherStream.mapToDouble(function).min().getAsDouble();
-            case MAX -> weatherStream.mapToDouble(function).max().getAsDouble();
-            default -> weatherStream.mapToDouble(function).average().getAsDouble();
-        };
     }
 
 }

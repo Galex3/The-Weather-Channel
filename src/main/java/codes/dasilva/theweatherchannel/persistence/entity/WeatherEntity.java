@@ -36,7 +36,7 @@ public class WeatherEntity implements Serializable {
     @TextIndexed
     private String weatherUuid;
 
-    @NotBlank
+    @NotBlank(message = "sensor can contain alphanumeric characters and underscores (_)")
     @Pattern(regexp = "^[\\w]{1,100}$") // Disabling symbols enhances security
     private String sensor;
 
@@ -58,6 +58,7 @@ public class WeatherEntity implements Serializable {
     @CreatedDate
     private Date timestamp;
 
+    @NotNull
     private boolean valid;
 
 }

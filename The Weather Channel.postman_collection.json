@@ -1,0 +1,588 @@
+{
+	"info": {
+		"_postman_id": "29ba6d6e-9501-4fb3-aa43-a932c6990eca",
+		"name": "The Weather Channel",
+		"description": "Feel free to use this to test the endpoints!",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10427801"
+	},
+	"item": [
+		{
+			"name": "Create Weather",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sensor\": \"sensor1\",\r\n    \"temperature\": 100,\r\n    \"humidity\": 100,\r\n    \"windSpeed\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/weather",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"weather"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Create Weather Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sensor\": \"sensor2\",\r\n    \"temperature\": 100,\r\n    \"humidity\": 100,\r\n    \"windSpeed\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/weather",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"weather"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"weatherUuid\": \"c2f52ea3-7f03-4fbd-bd47-c4f882504a78\",\n    \"sensor\": \"sensor2\",\n    \"temperature\": 100,\n    \"humidity\": 100,\n    \"windSpeed\": 100,\n    \"timestamp\": \"2023-07-14T20:46:23.989+00:00\",\n    \"valid\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Weather By ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"weather",
+						"12924daf-3997-44b8-a786-81afebbefade"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Weather By ID Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"12924daf-3997-44b8-a786-81afebbefade"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"weatherUuid\": \"12924daf-3997-44b8-a786-81afebbefade\",\n    \"sensor\": \"sensor1\",\n    \"temperature\": 11,\n    \"humidity\": 22,\n    \"windSpeed\": 33,\n    \"timestamp\": \"2023-07-14T20:41:17.593+00:00\",\n    \"valid\": true\n}"
+				}
+			]
+		},
+		{
+			"name": "Get All Weather",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/weather",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"weather"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get All Weather Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"12924daf-3997-44b8-a786-81afebbefade"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"weatherUuid\": \"12924daf-3997-44b8-a786-81afebbefade\",\n        \"sensor\": \"sensor1\",\n        \"temperature\": 11.0,\n        \"humidity\": 22,\n        \"windSpeed\": 33.0,\n        \"timestamp\": \"2023-07-14T20:41:17.593+00:00\",\n        \"valid\": false\n    },\n    {\n        \"weatherUuid\": \"c2f52ea3-7f03-4fbd-bd47-c4f882504a78\",\n        \"sensor\": \"sensor2\",\n        \"temperature\": 100.0,\n        \"humidity\": 100,\n        \"windSpeed\": 100.0,\n        \"timestamp\": \"2023-07-14T20:46:23.989+00:00\",\n        \"valid\": true\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Update Weather",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"sensor\": \"sensor1\",\r\n    \"temperature\": 11,\r\n    \"humidity\": 22,\r\n    \"windSpeed\": 33\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"weather",
+						"12924daf-3997-44b8-a786-81afebbefade"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Update Weather Example",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sensor\": \"sensor1\",\r\n    \"temperature\": 11,\r\n    \"humidity\": 22,\r\n    \"windSpeed\": 33\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"12924daf-3997-44b8-a786-81afebbefade"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jul 2023 20:41:17 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"weatherUuid\": \"12924daf-3997-44b8-a786-81afebbefade\",\n    \"sensor\": \"sensor1\",\n    \"temperature\": 11,\n    \"humidity\": 22,\n    \"windSpeed\": 33,\n    \"timestamp\": \"2023-07-14T20:41:17.593+00:00\",\n    \"valid\": true\n}"
+				},
+				{
+					"name": "Update Weather (Bad Request) Example",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"sensor\": \"sensor1\",\r\n    \"temperature\": 11,\r\n    \"humidity\": 101,\r\n    \"windSpeed\": 33\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"12924daf-3997-44b8-a786-81afebbefade"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 14 Jul 2023 20:41:17 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"http://localhost:8080/errors/bad-request\",\n    \"title\": \"Invalid Weather\",\n    \"status\": 400,\n    \"detail\": \"humidity: must be less than or equal to 100\",\n    \"instance\": \"/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Delete Weather",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"weather",
+						"12924daf-3997-44b8-a786-81afebbefade"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Delete Weather",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefade",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"12924daf-3997-44b8-a786-81afebbefade"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"weatherUuid\": \"12924daf-3997-44b8-a786-81afebbefade\",\n    \"sensor\": \"sensor1\",\n    \"temperature\": 11,\n    \"humidity\": 22,\n    \"windSpeed\": 33,\n    \"timestamp\": \"2023-07-14T20:41:17.593+00:00\",\n    \"valid\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "Get Sensor Data",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/v1/sensor-data?sensors=sensor1,sensor2&metrics=TEMPERATURE,humidity,Wind_speed&stat=sum&startDate=2023-07-13&endDate=2023-07-20&usa=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"sensor-data"
+					],
+					"query": [
+						{
+							"key": "sensors",
+							"value": "sensor1,sensor2",
+							"description": "Required: Comma-separated sensors' names"
+						},
+						{
+							"key": "metrics",
+							"value": "TEMPERATURE,humidity,Wind_speed",
+							"description": "Required: Comma-separated metrics"
+						},
+						{
+							"key": "stat",
+							"value": "sum",
+							"description": "Optional: MIN, SUM, MAX, or AVG. AVG is used by default"
+						},
+						{
+							"key": "startDate",
+							"value": "2023-07-13",
+							"description": "Optional"
+						},
+						{
+							"key": "endDate",
+							"value": "2023-07-20",
+							"description": "Optional"
+						},
+						{
+							"key": "usa",
+							"value": "true",
+							"description": "Optional: Boolean parameter that converts output temperature to fahrenheit"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Get Sensor Data Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sensor-data?sensors=sensor1,sensor2&metrics=TEMPERATURE,humidity,Wind_speed&stat=sum&startDate=2023-07-13&endDate=2023-07-20&usa=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sensor-data"
+							],
+							"query": [
+								{
+									"key": "sensors",
+									"value": "sensor1,sensor2",
+									"description": "Required: Comma-separated sensors' names"
+								},
+								{
+									"key": "metrics",
+									"value": "TEMPERATURE,humidity,Wind_speed",
+									"description": "Required: Comma-separated metrics"
+								},
+								{
+									"key": "stat",
+									"value": "sum",
+									"description": "Optional: MIN, SUM, MAX, or AVG. AVG is used by default"
+								},
+								{
+									"key": "startDate",
+									"value": "2023-07-13",
+									"description": "Optional"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-07-20",
+									"description": "Optional"
+								},
+								{
+									"key": "usa",
+									"value": "true",
+									"description": "Optional: Boolean parameter that converts output temperature to fahrenheit"
+								}
+							]
+						}
+					},
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"sensor\": \"sensor1\",\n        \"statistic\": \"SUM\",\n        \"temperature\": 231.8,\n        \"humidity\": 122,\n        \"windSpeed\": 133,\n        \"startDate\": \"2023-07-13T00:00:00.000+00:00\",\n        \"endDate\": \"2023-07-20T00:00:00.000+00:00\"\n    },\n    {\n        \"sensor\": \"sensor2\",\n        \"statistic\": \"SUM\",\n        \"temperature\": 212,\n        \"humidity\": 100,\n        \"windSpeed\": 100,\n        \"startDate\": \"2023-07-13T00:00:00.000+00:00\",\n        \"endDate\": \"2023-07-20T00:00:00.000+00:00\"\n    }\n]"
+				},
+				{
+					"name": "Get Sensor Data Bad Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/sensor-data?sensors=sensor1,sensor2&metrics=TEMPERATUREEEEE&stat=sum&startDate=2023-07-13&endDate=2023-07-20&usa=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"sensor-data"
+							],
+							"query": [
+								{
+									"key": "sensors",
+									"value": "sensor1,sensor2",
+									"description": "Required: Comma-separated sensors' names"
+								},
+								{
+									"key": "metrics",
+									"value": "TEMPERATUREEEEE",
+									"description": "Required: Comma-separated metrics"
+								},
+								{
+									"key": "stat",
+									"value": "sum",
+									"description": "Optional: MIN, SUM, MAX, or AVG. AVG is used by default"
+								},
+								{
+									"key": "startDate",
+									"value": "2023-07-13",
+									"description": "Optional"
+								},
+								{
+									"key": "endDate",
+									"value": "2023-07-20",
+									"description": "Optional"
+								},
+								{
+									"key": "usa",
+									"value": "true",
+									"description": "Optional: Boolean parameter that converts output temperature to fahrenheit"
+								}
+							]
+						}
+					},
+					"code": 400,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"about:blank\",\n    \"title\": \"Bad Request\",\n    \"status\": 400,\n    \"detail\": \"Failed to convert 'metrics' with value: 'TEMPERATUREEEEE'\",\n    \"instance\": \"/api/v1/sensor-data\"\n}"
+				}
+			]
+		}
+	]
+}

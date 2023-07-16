@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -23,13 +22,13 @@ public class SensorDataModel implements Serializable {
     @Serial
     private static final long serialVersionUID = 987654L;
 
-    @Id
     @NotBlank
     private String sensor;
 
     @NotNull
     private Statistic statistic;
 
+    @NotNull
     private double temperature;
 
     @DecimalMin(value = "0")
