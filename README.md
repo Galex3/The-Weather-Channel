@@ -1,5 +1,7 @@
 <a name="readme-top"></a>
 
+![Java CI with Maven](https://github.com/Galex3/The-Weather-Channel/actions/workflows/maven.yml/badge.svg)
+
 # The Weather Channel
 
 <!-- TABLE OF CONTENTS -->
