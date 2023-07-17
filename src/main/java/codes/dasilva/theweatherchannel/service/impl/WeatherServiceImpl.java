@@ -13,12 +13,25 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Implementation of the Service that declares the methods to be used by the Weather controller.
+ * @author Gustavo Silva
+ * @since 1.0.0
+ */
 @Service
 @Slf4j
 public class WeatherServiceImpl implements WeatherService {
 
     private final WeatherRepository weatherRepository;
 
+    /**
+     * Default constructor for WeatherServiceImpl.
+     * Used for <a href="https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html#beans-constructor-injection">Constructor-based Dependency Injection</a>.
+     * @param weatherRepository WeatherRepository to be injected
+     * @see WeatherRepository
+     * @author Gustavo Silva
+     * @since 1.0.0
+     */
     public WeatherServiceImpl(WeatherRepository weatherRepository) {
         this.weatherRepository = weatherRepository;
     }

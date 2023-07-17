@@ -22,12 +22,25 @@ import java.util.stream.Stream;
 import static codes.dasilva.theweatherchannel.utils.WeatherUtils.applyStatistic;
 import static codes.dasilva.theweatherchannel.utils.WeatherUtils.temperatureConverter;
 
+/**
+ * Implementation of the Service that declares the methods to be used by the SensorData controller.
+ * @author Gustavo Silva
+ * @since 1.0.0
+ */
 @Service
 @Slf4j
 public class SensorDataServiceImpl implements SensorDataService {
 
     private final WeatherRepository weatherRepository;
 
+    /**
+     * Default constructor for SensorDataServiceImpl.
+     * Used for <a href="https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html#beans-constructor-injection">Constructor-based Dependency Injection</a>.
+     * @param weatherRepository WeatherRepository to be injected
+     * @see WeatherRepository
+     * @author Gustavo Silva
+     * @since 1.0.0
+     */
     public SensorDataServiceImpl(WeatherRepository weatherRepository) {
         this.weatherRepository = weatherRepository;
     }

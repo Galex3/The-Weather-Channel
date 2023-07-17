@@ -20,6 +20,11 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Represents the data being saved on the collection "weather" in MongoDB.
+ * @author Gustavo Silva
+ * @since 1.0.0
+ */
 @Document(collection = "weather")
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -29,35 +34,68 @@ import java.util.Date;
 @Builder(toBuilder = true)
 public class WeatherEntity implements Serializable {
 
+    /**
+     * Universal Unique Identifier to identify the class.
+     * @since 1.0.0
+     */
     @Serial
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Universal Unique Identifier to identify the WeatherEntity.
+     * @since 1.0.0
+     */
     @Id
     @TextIndexed
     private String weatherUuid;
 
-    @NotBlank(message = "sensor can contain alphanumeric characters and underscores (_)")
+    /**
+     * Sensor name.
+     * @since 1.0.0
+     */
+    @NotBlank(message = "'sensor' can only contain alphanumeric characters and underscores (_)")
     @Pattern(regexp = "^[\\w]{1,100}$") // Disabling symbols enhances security
     private String sensor;
 
+    /**
+     * Temperature in Celsius.
+     * @since 1.0.0
+     */
     @NotNull
     @DecimalMin(value = "-100")
     @DecimalMax(value = "100")
     private float temperature;
 
+    /**
+     * Humidity in percentage.
+     * @since 1.0.0
+     */
     @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "100")
     private byte humidity;
 
+    /**
+     * Wind speed in kph.
+     * @since 1.0.0
+     */
     @NotNull
     @DecimalMin(value = "0")
     @DecimalMax(value = "500")
     private float windSpeed;
 
+    /**
+     * The date when this WeatherEntity was created
+     * @since 1.0.0
+     */
+    @NotNull
     @CreatedDate
     private Date timestamp;
 
+    /**
+     * Boolean that represents whether this WeatherEntity is (not) valid.
+     * @since 1.0.0
+     */
     @NotNull
     private boolean valid;
 
