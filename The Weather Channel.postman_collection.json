@@ -136,6 +136,41 @@
 					],
 					"cookie": [],
 					"body": "{\n    \"weatherUuid\": \"12924daf-3997-44b8-a786-81afebbefade\",\n    \"sensor\": \"sensor1\",\n    \"temperature\": 11,\n    \"humidity\": 22,\n    \"windSpeed\": 33,\n    \"timestamp\": \"2023-07-14T20:41:17.593+00:00\",\n    \"valid\": true\n}"
+				},
+				{
+					"name": "Get Weather By ID Bad Example",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/weather/12924daf-3997-44b8-a786-81afebbefadd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"weather",
+								"12924daf-3997-44b8-a786-81afebbefadd"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"name": "Content-Type",
+							"description": "",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"type\": \"http://localhost:8080/errors/not-found\",\n    \"title\": \"Weather Not Found\",\n    \"status\": 404,\n    \"detail\": \"Weather with id: '12924daf-3997-44b8-a786-81afebbefadd' not found\",\n    \"instance\": \"/api/v1/weather/12924daf-3997-44b8-a786-81afebbefadd\"\n}"
 				}
 			]
 		},

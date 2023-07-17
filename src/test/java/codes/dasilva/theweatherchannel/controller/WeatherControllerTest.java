@@ -47,9 +47,9 @@ class WeatherControllerTest {
 
     private final String weatherUuid = UUID.randomUUID().toString();
 
-    private final String endpoint = "/weather";
+    private static final String ENDPOINT = "/weather";
 
-    private final char endpointSeparator = '/';
+    private static final char ENDPOINT_SEPARATOR = '/';
 
     private final WeatherEntity weather = new WeatherEntity();
 
@@ -68,7 +68,7 @@ class WeatherControllerTest {
     @DisplayName("Should get the specified weather")
     void testGetWeather() throws Exception {
         when(weatherService.getWeatherByUuid(weatherUuid)).thenReturn(weather);
-        MockHttpServletRequestBuilder builder = get(endpoint + endpointSeparator + weatherUuid)
+        MockHttpServletRequestBuilder builder = get(ENDPOINT + ENDPOINT_SEPARATOR + weatherUuid)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
@@ -84,7 +84,7 @@ class WeatherControllerTest {
         WeatherModel dto = new WeatherModel("sensor2", 1f, (byte) 1, 1f);
         BeanUtils.copyProperties(dto, weather);
         when(weatherService.updateWeather(weatherUuid, dto)).thenReturn(weather);
-        MockHttpServletRequestBuilder builder = put(endpoint + endpointSeparator + weatherUuid)
+        MockHttpServletRequestBuilder builder = put(ENDPOINT + ENDPOINT_SEPARATOR + weatherUuid)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -101,7 +101,7 @@ class WeatherControllerTest {
         WeatherModel dto = new WeatherModel("sensor1", 1f, (byte) 1, 1f);
         BeanUtils.copyProperties(dto, weather);
         when(weatherService.createWeather(dto)).thenReturn(weather);
-        MockHttpServletRequestBuilder builder = post(endpoint)
+        MockHttpServletRequestBuilder builder = post(ENDPOINT)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
@@ -117,7 +117,7 @@ class WeatherControllerTest {
     void testDeleteWeather() throws Exception {
         when(weatherService.deleteWeather(weatherUuid)).thenReturn(weather);
         weather.setValid(false);
-        MockHttpServletRequestBuilder builder = delete(endpoint + endpointSeparator + weatherUuid)
+        MockHttpServletRequestBuilder builder = delete(ENDPOINT + ENDPOINT_SEPARATOR + weatherUuid)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);

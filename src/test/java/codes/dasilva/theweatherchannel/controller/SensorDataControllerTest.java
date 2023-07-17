@@ -17,17 +17,15 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(SensorDataController.class)
 class SensorDataControllerTest {
@@ -38,7 +36,7 @@ class SensorDataControllerTest {
     @MockBean
     private SensorDataService sensorDataService;
 
-    private final String endpoint = "/sensor-data";
+    private static final String ENDPOINT = "/sensor-data";
 
     private final SensorDataModel sensorData = new SensorDataModel();
 
@@ -56,20 +54,23 @@ class SensorDataControllerTest {
     @Test
     @DisplayName("Should return a list of SensorDataModels that match the given criteria (MAX)")
     void testGetSensorData() throws Exception {
-        // TEST FAILS. Body is an empty list, not sure why...
-        when(sensorDataService.getSensorData(Set.of("sensor1"),
+        // TEST FAILS. Body is an empty list, so query isn't returning anything. Not sure why...
+        when(sensorDataService.getSensorData(new HashSet<>(List.of("sensor1")),
                 EnumSet.of(Metric.TEMPERATURE),
-                null,
-                null,
-                null,
+                Statistic.AVG,
+                Timestamp.valueOf("2023-07-01 00:00:00"),
+                Timestamp.valueOf("2023-07-31 00:00:00"),
                 false
         )).thenReturn(List.of(sensorData));
-        MockHttpServletRequestBuilder builder = get(endpoint)
+        MockHttpServletRequestBuilder builder = get(ENDPOINT)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
                 .param("sensors", "sensor1")
-                .param("metrics", Metric.TEMPERATURE.name());
+                .param("metrics", Metric.TEMPERATURE.name())
+                .param("startDate", "2023-07-01 00:00:00")
+                .param("endDate", "2023-07-31 00:00:00")
+                .param("usa", String.valueOf(false));
         this.mockMvc.perform(builder).andDo(print())
                 .andExpect(status().isOk()) // Passes
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON)) // Passes
@@ -81,7 +82,7 @@ class SensorDataControllerTest {
     void testGetSensorDataMissingSensors() throws Exception {
         when(sensorDataService.getSensorData(null,null, null, null, null, false
         )).thenReturn(List.of(sensorData));
-        MockHttpServletRequestBuilder builder = get(endpoint)
+        MockHttpServletRequestBuilder builder = get(ENDPOINT)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON);
@@ -95,7 +96,7 @@ class SensorDataControllerTest {
     void testGetSensorDataMissingMetrics() throws Exception {
         when(sensorDataService.getSensorData(null,null, null, null, null, false
         )).thenReturn(List.of(sensorData));
-        MockHttpServletRequestBuilder builder = get(endpoint)
+        MockHttpServletRequestBuilder builder = get(ENDPOINT)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
                 .contentType(MediaType.APPLICATION_JSON)
