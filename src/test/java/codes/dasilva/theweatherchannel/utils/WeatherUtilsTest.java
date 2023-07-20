@@ -33,10 +33,10 @@ class WeatherUtilsTest {
         );
         WeatherEntity weather = new WeatherEntity();
         BeanUtils.copyProperties(weatherList.get(0), weather);
+        weather.setTemperature(60);
+        weather.setWindSpeed(50);
+        weather.setHumidity((byte) 40);
         weatherList.add(weather);
-        weatherList.get(1).setTemperature(60);
-        weatherList.get(1).setWindSpeed(50);
-        weatherList.get(1).setHumidity((byte) 40);
     }
 
     @Test

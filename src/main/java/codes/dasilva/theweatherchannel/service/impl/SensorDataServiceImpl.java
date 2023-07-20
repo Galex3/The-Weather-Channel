@@ -46,7 +46,7 @@ public class SensorDataServiceImpl implements SensorDataService {
     }
 
     @Override
-    public List<SensorDataModel> getSensorData(Set<String> sensors, EnumSet<Metric> metrics, Statistic statistic, Date startDate, Date endDate, boolean fahrenheit) {
+    public List<SensorDataModel> getSensorData(Set<String> sensors, EnumSet<Metric> metrics, Statistic statistic, Date startDate, Date endDate, Boolean fahrenheit) {
         final List<WeatherEntity> weatherData = weatherRepository.findAllThatMatchCriteria(sensors, startDate, endDate);
         if (weatherData.isEmpty()) {
             return Collections.emptyList();
@@ -66,7 +66,7 @@ public class SensorDataServiceImpl implements SensorDataService {
                 switch (metric) {
                     case TEMPERATURE -> {
                         final double temp = applyStatistic(statistic, weatherStream, WeatherEntity::getTemperature);
-                        sensorDataModel.setTemperature(fahrenheit ? temperatureConverter(temp) : temp);
+                        sensorDataModel.setTemperature(Boolean.TRUE.equals(fahrenheit) ? temperatureConverter(temp) : temp);
                     }
                     case HUMIDITY ->
                             sensorDataModel.setHumidity(applyStatistic(statistic, weatherStream, WeatherEntity::getHumidity));

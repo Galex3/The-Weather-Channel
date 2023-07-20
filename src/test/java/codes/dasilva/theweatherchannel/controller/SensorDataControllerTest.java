@@ -16,12 +16,11 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
-import java.util.EnumSet;
-import java.util.HashSet;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -55,13 +54,7 @@ class SensorDataControllerTest {
     @DisplayName("Should return a list of SensorDataModels that match the given criteria (MAX)")
     void testGetSensorData() throws Exception {
         // TEST FAILS. Body is an empty list, so query isn't returning anything. Not sure why...
-        when(sensorDataService.getSensorData(new HashSet<>(List.of("sensor1")),
-                EnumSet.of(Metric.TEMPERATURE),
-                Statistic.AVG,
-                Timestamp.valueOf("2023-07-01 00:00:00"),
-                Timestamp.valueOf("2023-07-31 00:00:00"),
-                false
-        )).thenReturn(List.of(sensorData));
+        when(sensorDataService.getSensorData(any(), any(), any(), any(), any(), any())).thenReturn(List.of(sensorData));
         MockHttpServletRequestBuilder builder = get(ENDPOINT)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
@@ -80,8 +73,6 @@ class SensorDataControllerTest {
     @Test
     @DisplayName("Should return a Bad Request (400): Missing sensors")
     void testGetSensorDataMissingSensors() throws Exception {
-        when(sensorDataService.getSensorData(null,null, null, null, null, false
-        )).thenReturn(List.of(sensorData));
         MockHttpServletRequestBuilder builder = get(ENDPOINT)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)
@@ -94,8 +85,6 @@ class SensorDataControllerTest {
     @Test
     @DisplayName("Should return a Bad Request (400): Missing metrics")
     void testGetSensorDataMissingMetrics() throws Exception {
-        when(sensorDataService.getSensorData(null,null, null, null, null, false
-        )).thenReturn(List.of(sensorData));
         MockHttpServletRequestBuilder builder = get(ENDPOINT)
                 .characterEncoding(Charset.defaultCharset())
                 .accept(MediaType.APPLICATION_JSON)

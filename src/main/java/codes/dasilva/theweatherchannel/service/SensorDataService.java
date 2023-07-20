@@ -38,7 +38,7 @@ public interface SensorDataService {
             Statistic statistic,
             Date startDate,
             Date endDate,
-            boolean fahrenheit
+            Boolean fahrenheit
     );
 
 }
